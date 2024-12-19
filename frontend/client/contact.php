@@ -1,3 +1,7 @@
+<?php
+session_start();
+include '../../backend/database/database.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,15 +79,24 @@
                     <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="menu.php">Menu</a></li>
                     <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="contact.php">Contact</a></li>
                     <?php
-                        if(isset($_SESSION['logged_id'])){
+                        if(isset($_SESSION['id_logged'])){
                         echo "<li><a href='reservation.php'>My Reservations</a></li>";
                     }
                     ?>
                 </ul>
      
             <div>
-                <button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary"><a href="../index.php">Login/Signup</a></button>
-            </div>
+            <?php
+                if(isset($_SESSION['id_logged']))
+                {
+                   echo' <button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary"><a href="../../backend/actionsPHP/logout.php">Logout</a></button>';
+
+                }
+                else 
+                {
+                    echo '<button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary"><a href="../index.php">Login/Signup</a></button>';
+                }
+            ?>            </div>
         </nav>
         <div class="h-72 w-[100%] flex p-8 items-center justify-center ">
                 <p class="text-[50px]">Contact</p>

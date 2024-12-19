@@ -1,4 +1,18 @@
+<?php
+session_start();
+include '../../backend/database/database.php';
+if(isset($_SESSION['id_logged']))
+{
+    if($_SESSION['role'] == 'user')
+    {
+        header('Location: /Gestion Restaurant/frontend/client/home.php');
+    }
+} else {
+    header('Location: /Gestion Restaurant/frontend/index.php');
+}
+$allReservations = $con->query('SELECT * from reservation');
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +99,7 @@
                 <div class="flex w-72 justify-between  items-center ">
                     <img class="cursor-pointer" src="./img/settings.svg" alt="">
                     <img class="cursor-pointer" src="./img/Icon.svg" alt="">
-                    <form action="logout.php" action="post">
+                    <form action="../../backend/actionsPHP/logout.php" action="post">
                         <button><img src="img/logout.png" class="h-4 w-4" alt=""></button>
                     </form>
                     <div class="flex items-center gap-2 cursor-pointer">
@@ -136,82 +150,50 @@
                     </div>
                </div>
             </div>
-            <div class="flex w-full flex-wrap justify-around ">
-                <div class="w-[40%] border flex flex-col gap-2 rounded-lg p-2">
-                    <div class="flex justify-between items-center">
-                        <p class="text-center">Reservation Of Test Test</p>
-                        <div class="flex gap-2">
-                            <a  href="" class="bg-[#2c7a0f] rounded-md px-2 py-1">Accept</a>
-                            <a href="" class="bg-[#ff0000] rounded-md px-2 py-1">Reject</a>
+            <div class="flex w-full flex-wrap gap-2 justify-around ">
+             
+               <?php
+               if($allReservations->num_rows>0)
+               {
+                    foreach($allReservations as $res)
+                    {?>
+                        <div class="w-[40%] border flex flex-col gap-2 rounded-lg p-2">
+                        <div class="flex justify-between items-center">
+                            <p class="text-center">Reservation Of Test Test</p>
+                            <div class="flex gap-2">
+                                <?php if($res['status'] == 'En Attente') {?>
+                                    <form action="../../backend/actionsPHP/reservation/updateStatus.php" method="post">
+                                        <input type="hidden" name="res-id" value ='<?php echo $res['id']?>'>
+                                <button  name="accept" class="bg-[#2c7a0f] rounded-md px-2 py-1">Accept</button>
+                                <button name="reject" class="bg-[#ff0000] rounded-md px-2 py-1">Reject</buttona>
+                                </form>
+                                <?php } else if($res['status'] == 'Accepted') {?>
+                               <p class="text-[#2c7a0f]">Accepted</p>
+                               <?php } else if($res['status'] == 'Canceled') {?>
+                                <p class="text-[#ff0000]">Canceled</p>
+                                <?php } else if($res['status'] == 'Rejected') {?>
+                                    <p class="text-[#ff0000]">Rejected</p>
+                                    <?php } ?>
+
+                            </div>
+    
                         </div>
-
+                        <p>Menu X </p>
+                        <p><span class="text-[#a2a2a2]">Nomre de personne:</span> </p>
+                        <p><span class="text-[#a2a2a2]">Adresse:</span> </p>
+                        <p><span class="text-[#a2a2a2]">Date:</span> </p>
+                        <p><span class="text-[#a2a2a2]">Heure:</span> </p>
+                        <p><span class="text-[#a2a2a2]">Status:</span> Accepted </p>
+    
+                       
                     </div>
-                    <p>Menu X </p>
-                    <p><span class="text-[#a2a2a2]">Nomre de personne:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Adresse:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Date:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Heure:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Status:</span> En Attente </p>
-
-                   
-                </div>
-                <div class="w-[40%] border flex flex-col gap-2 rounded-lg p-2">
-                    <div class="flex justify-between items-center">
-                        <p class="text-center">Reservation Of Test Test</p>
-                        <div class="flex gap-2">
-                            <!-- <a  href="" class="bg-[#2c7a0f] rounded-md px-2 py-1">Accept</a>
-                            <a href="" class="bg-[#ff0000] rounded-md px-2 py-1">Refuse</a> -->
-                           <p class="text-[#2c7a0f]">Accepted</p>
-                        </div>
-
-                    </div>
-                    <p>Menu X </p>
-                    <p><span class="text-[#a2a2a2]">Nomre de personne:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Adresse:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Date:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Heure:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Status:</span> Accepted </p>
-
-                   
-                </div>
-                <div class="w-[40%] border flex flex-col gap-2 rounded-lg p-2">
-                    <div class="flex justify-between items-center">
-                        <p class="text-center">Reservation Of Test Test</p>
-                        <div class="flex gap-2">
-                            <!-- <a  href="" class="bg-[#2c7a0f] rounded-md px-2 py-1">Accept</a>
-                            <a href="" class="bg-[#ff0000] rounded-md px-2 py-1">Refuse</a> -->
-                           <p class="text-[#ff0000]">Rejected</p>
-                        </div>
-
-                    </div>
-                    <p>Menu X </p>
-                    <p><span class="text-[#a2a2a2]">Nomre de personne:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Adresse:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Date:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Heure:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Status:</span> Rejected </p>
-
-                   
-                </div>
-                <div class="w-[40%] border flex flex-col gap-2 rounded-lg p-2">
-                    <div class="flex justify-between items-center">
-                        <p class="text-center">Reservation Of Test Test</p>
-                        <div class="flex gap-2">
-                            <!-- <a  href="" class="bg-[#2c7a0f] rounded-md px-2 py-1">Accept</a>
-                            <a href="" class="bg-[#ff0000] rounded-md px-2 py-1">Refuse</a> -->
-                           <p class="text-[#ff0000]">Canceled</p>
-                        </div>
-
-                    </div>
-                    <p>Menu X </p>
-                    <p><span class="text-[#a2a2a2]">Nomre de personne:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Adresse:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Date:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Heure:</span> </p>
-                    <p><span class="text-[#a2a2a2]">Status:</span> Canceled </p>
-
-                   
-                </div>
+                    <?php
+                    }
+               }else{
+                echo "<p> No Reservations Found</p>";
+               }
+               ?>
+             
 
             </div>
  

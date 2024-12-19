@@ -1,4 +1,17 @@
+<?php
+session_start();
+include '../../backend/database/database.php';
 
+if(isset($_SESSION['id_logged']))
+{
+    if($_SESSION['role'] == 'user')
+    {
+        header('Location: /Gestion Restaurant/frontend/client/home.php');
+    }
+} else {
+    header('Location: /Gestion Restaurant/frontend/index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,23 +57,20 @@
 
 <body >
 <?php
-// include('db.php');
-// if (isset($_SESSION['id']) && isset($_SESSION['role'])) {
-//     $id = $_SESSION['id'];
-//     $role = $_SESSION['role'];
-//     if($role == "admin"){
-//         $result = $con-> query("SELECT * from admin where `id` = $id");
-//         $row = $result-> fetch_assoc();
-//     } else {
-//         $result = $con-> query("SELECT * from `etudiant` where `id` = $id");
-//         $row = $result-> fetch_assoc();
-//     }
+
+if (isset($_SESSION['id_logged']) && isset($_SESSION['role'])) {
+    $id = $_SESSION['id_logged'];
+    $role = $_SESSION['role'];
+    if($role == "admin"){
+        $result = $con-> query("SELECT * from user where `id` = $id");
+        $row = $result-> fetch_assoc();
+    } 
    
 
 
-// }else {
-//     header('Location: /Gestion Restaurant/frontend/index.php');
-// }
+}else {
+    header('Location: /Gestion Restaurant/frontend/index.php');
+}
 ?>
 <div class="flex min-h-screen h-full ">
     <aside class="w-52 border-r min-h-full  flex flex-col items-center gap-16 ">
@@ -85,7 +95,7 @@
                 <div class="flex w-72 justify-between  items-center ">
                     <img class="cursor-pointer" src="./img/settings.svg" alt="">
                     <img class="cursor-pointer" src="./img/Icon.svg" alt="">
-                    <form action="logout.php" action="post">
+                    <form action="../../backend/actionsPHP/logout.php" action="post">
                         <button><img src="img/logout.png" class="h-4 w-4" alt=""></button>
                     </form>
                     <div class="flex items-center gap-2 cursor-pointer">

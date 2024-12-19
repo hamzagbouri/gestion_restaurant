@@ -1,3 +1,7 @@
+<?php
+session_start();
+include '../../backend/database/database.php';
+?>
 <header class="bg-[url('../image/bg22.png')] bg-cover  bg-no-repeat object-fit h-screen " >
         <nav class="w-full h-[10%] sticky  flex overflow-hidden items-center justify-around">
             <div class="h-full flex items-center h-full ">
@@ -9,14 +13,24 @@
                     <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="menu.php">Menu</a></li>
                     <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="contact.php">Contact</a></li>
                     <?php
-                        if(isset($_SESSION['logged_id'])){
+                        if(isset($_SESSION['id_logged'])){
                         echo "<li><a href='reservation.php'>My Reservations</a></li>";
                     }
                     ?>
                 </ul>
      
             <div>
-                <button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary"><a href="../index.php">Login/Signup</a></button>
+            <?php
+                if(isset($_SESSION['id_logged']))
+                {
+                   echo' <button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary"><a href="../../backend/actionsPHP/logout.php">Logout</a></button>';
+
+                }
+                else 
+                {
+                    echo '<button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary"><a href="../index.php">Login/Signup</a></button>';
+                }
+            ?>
             </div>
         </nav>
         <div class="h-[90%] w-[60%] flex p-8 items-center justify-center ">

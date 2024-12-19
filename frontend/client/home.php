@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +65,9 @@
         </script>
 </head>
 <body class="w-full h-full min-h-screen text-white font-primary ">
-    <?php include 'header.php'; ?>
+    <?php include 'header.php';
+    $allMenu = $con ->query('SELECT * from menu');
+    ?>
 
     <section class="flex w-full h-full p-32 items-center justify-center text-black">
             <div class=" flex">
@@ -73,7 +76,7 @@
                      
             </div>
             <div>
-                    <p class="text-[#757575] ">The Royalx Restaurant</p>
+                    <p class="text-[#757575] ">Chef Pro Hamza</p>
                   <h2 class="text-[40px] font-bold ">Welcome to <span class="text-primary font-bold">Chef</span>  PRO,
                     A <span class="text-primary font-bold">Feast</span> for the Senses</h2>
                   <p>
@@ -93,55 +96,34 @@
         <p class="text-[40px]">Delicious <span class="text-primary font-bold">Dishes</span></p>
         <div class="flex h-[100%] gap-8">
             <div class="flex flex-col gap-4 justufy-around h-auto h-[100%] w-[50%]">
-                    <div class="p-2 flex flex-col gap-2 border-t-2 border-b-2 w-full hover:border-primary hover:border-t-4 hover:border-b-4">
-                        <div class="flex justify-between">
-                        <p>Menu 1</p>
-                        <p class="text-primary text-xl ">50$</p>
+                    <?php
+                    $cmp = 0;
+                    foreach($allMenu as $menu){
+                        echo "<div class='p-2 flex flex-col gap-2 border-t-2 border-b-2 w-full hover:border-primary hover:border-t-4 hover:border-b-4'>
+                        <div class='flex justify-between'>
+                        <p>" .$menu['titre'] ."</p>
+                        <p class='text-primary text-xl '>" .$menu['prix'] ."$</p>
                         </div>
-                        
-                        <p>Plat1,Plat2,Plat3,Plat4,Plat5</p>
-                    </div>
-                    <div class="p-2 flex flex-col gap-2 border-t-2 border-b-2 w-full hover:border-primary hover:border-t-4 hover:border-b-4">
-                        <div class="flex justify-between">
-                        <p>Menu 1</p>
-                        <p class="text-primary text-xl ">50$</p>
-                        </div>
-                        
-                        <p>Plat1,Plat2,Plat3,Plat4,Plat5</p>
-                    </div>
-                    <div class="p-2 flex flex-col gap-2 border-t-2 border-b-2 w-full hover:border-primary hover:border-t-4 hover:border-b-4">
-                        <div class="flex justify-between">
-                        <p>Menu 1</p>
-                        <p class="text-primary text-xl ">50$</p>
-                        </div>
-                        
-                        <p>Plat1,Plat2,Plat3,Plat4,Plat5</p>
-                    </div>
-                    <div class="p-2 flex flex-col gap-2 border-t-2 border-b-2 w-full hover:border-primary hover:border-t-4 hover:border-b-4">
-                        <div class="flex justify-between">
-                        <p>Menu 1</p>
-                        <p class="text-primary text-xl ">50$</p>
-                        </div>
-                        
-                        <p>Plat1,Plat2,Plat3,Plat4,Plat5</p>
-                    </div>
-                    <div class="p-2 flex flex-col gap-2 border-t-2 border-b-2 w-full hover:border-primary hover:border-t-4 hover:border-b-4">
-                        <div class="flex justify-between">
-                        <p>Menu 1</p>
-                        <p class="text-primary text-xl ">50$</p>
-                        </div>
-                        
-                        <p>Plat1,Plat2,Plat3,Plat4,Plat5</p>
-                    </div>
-                    <div class="p-2 flex flex-col gap-2 border-t-2 border-b-2 w-full hover:border-primary hover:border-t-4 hover:border-b-4">
-                        <div class="flex justify-between">
-                        <p>Menu 1</p>
-                        <p class="text-primary text-xl ">50$</p>
-                        </div>
-                        
-                        <p>Plat1,Plat2,Plat3,Plat4,Plat5</p>
-                    </div>
-                 
+                        ";
+                        $allPlat = $con->query("SELECT * from plat inner join menu_plat on menu_plat.id_plat = plat.id inner join menu on menu_plat.id_menu = menu.id where menu.id = ".$menu['id']."");
+                        $plats = [];
+                        foreach ($allPlat as $plat) {
+                            $plats[] = $plat['titre_plat']; // Collect the plat names in an array
+                        }
+                    
+                        echo "<p>" . implode(", ", $plats) . "</p>"; // Join plat names with a comma and space
+                    
+                        echo "</div>";
+                    
+                        $cmp++;
+                        if ($cmp == 6) {
+                            break;
+                        }
+                    }
+                    ?>
+                    
+                    
+                    
                     
             </div>
             <div class=" flex flex-wrap w-[60%] gap-4">

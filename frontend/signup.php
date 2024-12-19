@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['id_logged']))
+{
+    header('Location: /Gestion Restaurant/frontend/index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,24 +104,25 @@
             </div>
             <div class="w-[40%] flex flex-col gap-8">
                     <p class="text-[#757575] text-center text-[40px] ">SIGN UP</p>
-                    <form action="" method="post" class="flex flex-col gap-4" >
+                    <form action="../backend/actionsPHP/signup.php" method="post" class="flex flex-col gap-4" >
                     <div class="flex flex-col gap-2">
                         <label for="name-signup text-xl">Name</label>
-                        <input id="name-signup" type="text" class='border pl-4 py-2' placeholder="Enter your name...">
+                        <input id="name-signup" name="name-signup" type="text" class='border pl-4 py-2' placeholder="Enter your name...">
                         </div>
                         <div class="flex flex-col gap-2">
                         <label for="email-signup text-xl">Email</label>
-                        <input id="email-signup" type="text" class='border pl-4 py-2' placeholder="Enter your email...">
+                        <input id="email-signup" type="text" name="email-signup" class='border pl-4 py-2' placeholder="Enter your email...">
                         </div>
                        
                         <div class="flex flex-col">
                             <label for="password-signup">Password</label>
-                            <input id="password-signup" class='border pl-4 py-2' type="password" placeholder="Enter your password...">
+                            <input id="password-signup" name="password-signup" class='border pl-4 py-2' type="password" placeholder="Enter your password...">
                         </div>
                         <button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary">Sign Up</button>
                         <p class="text-[#757575] text-center">Already have an account? <a class="underline" href="index.php">login</a> </p>
 
                     </form>
+                
             </div>
     </section>
     <footer>
