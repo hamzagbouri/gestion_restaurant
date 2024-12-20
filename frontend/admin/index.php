@@ -11,6 +11,8 @@ if(isset($_SESSION['id_logged']))
 } else {
     header('Location: /Gestion Restaurant/frontend/index.php');
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,8 +67,16 @@ if (isset($_SESSION['id_logged']) && isset($_SESSION['role'])) {
         $result = $con-> query("SELECT * from user where `id` = $id");
         $row = $result-> fetch_assoc();
     } 
-   
-
+   $enAttente = $con-> query("SELECT COUNT(*) as demandeEnAttente from reservation where status = 'En Attente' ");
+   $clients = $con-> query("SELECT COUNT(*) as nbrClient from user where role = 'user' ");
+   $nextReservation = $con->query("SELECT * FROM reservation WHERE DATE(date_reservation) >= CURDATE()  AND TIME(heure_reservation) >= CURTIME() ORDER BY date_reservation ASC, heure_reservation ASC LIMIT 1");
+   $Approved = $con->query("SELECT COUNT(*) as demandeApprovToday FROM reservation WHERE DATE(date_reservation) = CURDATE() AND status='Accepted'");
+   $ApprovedTomorrow = $con->query("SELECT COUNT(*) as demandeApprovTomorrow FROM reservation WHERE DATE(date_reservation) = (SELECT CURDATE() + INTERVAL 1 DAY AS tomorrow_date) AND status='Accepted'");
+   $next =  $nextReservation->fetch_assoc();
+   $cmpEnAttente = $enAttente->fetch_assoc();
+    $cmpclients = $clients->fetch_assoc();
+    $cmpApproved = $Approved->fetch_assoc();
+    $cmpApprovedTomorrow = $ApprovedTomorrow->fetch_assoc();
 
 }else {
     header('Location: /Gestion Restaurant/frontend/index.php');
@@ -102,7 +112,7 @@ if (isset($_SESSION['id_logged']) && isset($_SESSION['role'])) {
                         <div class=" cursor-pointer w-10 h-10 bg-[url('img/Ana.jpg')] bg-cover rounded-full text-white relative ">
                         <div class="bg-[#228B22] h-3 w-3 rounded-full absolute bottom-0 right-0  "></div>
                         </div>
-                       <p class="text-[#606060] font-bold">Hamza GBOURI </p>
+                       <p class="text-[#606060] font-bold"><?php echo $row['nom'] ?> </p>
                     </div>
                    
                 </div>
@@ -119,38 +129,41 @@ if (isset($_SESSION['id_logged']) && isset($_SESSION['role'])) {
 
     <!-- Statistiques Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Demandes en Attente -->
+
         <div class="flex flex-col items-center p-4 bg-yellow-500 text-white rounded-lg shadow-md">
             <h3 class="text-xl font-semibold">Demandes en Attente</h3>
-            <p class="text-3xl font-bold mt-2">15</p>
+            <p class="text-3xl font-bold mt-2"><?php echo $cmpEnAttente['demandeEnAttente']?></p>
         </div>
 
-        <!-- Demandes Approuvées Aujourd'hui -->
+  
         <div class="flex flex-col items-center p-4 bg-green-500 text-white rounded-lg shadow-md">
             <h3 class="text-xl font-semibold">Demandes Approuvées Aujourd'hui</h3>
-            <p class="text-3xl font-bold mt-2">20</p>
+            <p class="text-3xl font-bold mt-2"><?php echo $cmpApproved['demandeApprovToday']?></p>
         </div>
 
-        <!-- Demandes Approuvées pour Demain -->
+    
         <div class="flex flex-col items-center p-4 bg-blue-500 text-white rounded-lg shadow-md">
             <h3 class="text-xl font-semibold">Demandes Approuvées pour Demain</h3>
-            <p class="text-3xl font-bold mt-2">10</p>
+            <p class="text-3xl font-bold mt-2"><?php echo $cmpApprovedTomorrow['demandeApprovTomorrow']?></p>
         </div>
 
-        <!-- Nombre de Clients Inscrits -->
+      
         <div class="flex flex-col items-center p-4 bg-[#9c7e54] text-white rounded-lg shadow-md">
             <h3 class="text-xl font-semibold">Clients Inscrits</h3>
-            <p class="text-3xl font-bold mt-2">150</p>
+            <p class="text-3xl font-bold mt-2"><?php echo $cmpclients['nbrClient']?></p>
         </div>
     </div>
 
-    <!-- Détails du Prochain Client -->
+
     <div class="bg-white p-6 rounded-lg shadow-md">
-        <h3 class="text-lg font-bold text-[#9c7e54]">Prochain Client</h3>
+        <h3 class="text-lg font-bold text-[#9c7e54]">Next Client</h3>
         <div class="mt-4">
-            <p><span class="font-bold">Nom :</span> John Doe</p>
-            <p><span class="font-bold">Heure de Réservation :</span> 13:00</p>
-            <p><span class="font-bold">Détails :</span> Table pour 4 personnes, terrasse.</p>
+            <?php $clientInfo =  $con->query("SELECT * from user where id= ".$next['id_client']."");
+                $clientDetails = $clientInfo->fetch_assoc();
+            ?>
+            <p><span class="font-bold">Name :</span> <?php echo $clientDetails['nom']?></p>
+            <p><span class="font-bold">Heure de Réservation :</span> <?php echo $next['heure_reservation']?></p>
+            <p><span class="font-bold">Adresse :</span> <?php echo $next['addresse_reservation']?></p>
         </div>
     </div>
 </section>

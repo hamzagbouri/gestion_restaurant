@@ -69,33 +69,36 @@
     $allMenu = $con ->query('SELECT * from menu');
     ?>
 
-    <section class="flex w-full h-full p-32 items-center justify-center text-black">
-            <div class=" flex">
+    <section class="flex flex-col md:flex-row w-full h-full p-4 md:p-32  items-center justify-center text-black">
+            <div class=" flex ">
                 <img class=" w-[90%] rounded-tl-3xl rounded-tr-full rounded-bl-full rounded-br-full " src="../image/bg.jpeg" alt="">
                 <!-- <img class="w-[40%] rounded-tr-3xl rounded-tl-full rounded-bl-full rounded-br-full " src="../image/image.webp" alt=""> -->
                      
             </div>
-            <div>
+            <div class="text-center">
                     <p class="text-[#757575] ">Chef Pro Hamza</p>
                   <h2 class="text-[40px] font-bold ">Welcome to <span class="text-primary font-bold">Chef</span>  PRO,
                     A <span class="text-primary font-bold">Feast</span> for the Senses</h2>
-                  <p>
+                  <p class="">
                     Immerse yourself in an unparalleled dining experience where flavors, aromas, and ambiance come together to create a feast for all your senses. Welcome to Royalx restaurant.
                     Join us at Royalx restaurant and discover a world of culinary excellence. Our chefs craft each dish with passion and precision, bringing you the finest flavors from around the globe.
                   </p>
                   <p class="font-bold">Mr. Hamza GBOURI</p>
-                  <img class="w-24 h-24" src="../image/signature.png" alt="">
+                  <div class='flex justify-center'>
+                  <img class="w-24 h-24 text-center" src="../image/signature.png" alt="">
+
+                  </div>
             </div>
     </section>
-    <section class="text-black w-full px-32 pb-32 flex gap-4 flex-col h-full items-center justify-center">
+    <section class="text-black w-full px-4 pb-4  md:px-32 md:pb-32 flex gap-4 flex-col h-full items-center justify-center">
         <div class="flex gap-2">
             <img src="../image/left-shape.svg" alt="">
             <h2> Our Menu</h2>
             <img src="../image/right-shape.svg" alt="">
         </div>
         <p class="text-[40px]">Delicious <span class="text-primary font-bold">Dishes</span></p>
-        <div class="flex h-[100%] gap-8">
-            <div class="flex flex-col gap-4 justufy-around h-auto h-[100%] w-[50%]">
+        <div class="flex h-[100%] md:gap-8">
+            <div class="flex flex-col gap-4 justufy-around h-auto h-[100%] w-[100%] md:w-[50%]">
                     <?php
                     $cmp = 0;
                     foreach($allMenu as $menu){
@@ -126,7 +129,7 @@
                     
                     
             </div>
-            <div class=" flex flex-wrap w-[60%] gap-4">
+            <div class=" hidden md:flex flex-wrap w-[90%] md:w-[60%] gap-4">
                     <img class="w-[50%] h-64 rounded-t-full rounded-bl-full" src="../image/plat.jpg" alt="">
                     <img class="w-[40%] h-64 rounded-t-full rounded-br-full" src="../image/plat.jpg" alt="">
                     <img class="w-[50%] h-64 rounded-b-full rounded-tl-full" src="../image/plat.jpg" alt="">
@@ -137,32 +140,32 @@
        
 
     </section>
-    <section class="text-black w-full px-32 pb-32 flex gap-4 flex-col h-full items-center justify-center">
+    <section class="text-black w-full px-4 pb-4  md:px-32 md:pb-32 flex gap-4 flex-col h-full items-center justify-center">
         <div class="flex gap-2">
             <img src="../image/left-shape.svg" alt="">
             <h2> Our Best Reviews</h2>
             <img src="../image/right-shape.svg" alt="">
         </div>
-        <div class="w-full flex gap-4 pt-8">
-            <div class="flex flex-col">
+        <div class="w-full flex flex-wrap md:flex-no-wrap justify-center gap-4 pt-8">
+            <div class="flex flex-col w-[50%] md:w-[20%]">
                 <img class="rounded-t-full" src="../image/1.jpg" alt="">
                 <p class="font-bold text-center">Hamza Gbouri</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, odit nam neque excepturi, illo, nulla </p>
 
             </div>
-            <div class="flex flex-col">
+            <div class="flex flex-col w-[50%] md:w-[20%]">
                 <img class="rounded-t-full" src="../image/2.jpg" alt="">
                 <p class="font-bold text-center">Hamza Gbouri</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, odit nam neque excepturi, illo, nulla </p>
 
             </div>
-            <div class="flex flex-col">
-                <img class="rounded-t-full" src="../image/3.jpg" alt="">
+            <div class="flex flex-col w-[50%] md:w-[20%]">
+                <img class="rounded-t-full " src="../image/3.jpg" alt="">
                 <p class="font-bold text-center">Hamza Gbouri</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, odit nam neque excepturi, illo, nulla </p>
 
             </div>
-            <div class="flex flex-col">
+            <div class="flex flex-col w-[50%] md:w-[20%]">
                 <img class="rounded-t-full" src="../image/4.jpg" alt="">
                 <p class="font-bold text-center">Hamza Gbouri</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, odit nam neque excepturi, illo, nulla </p>
@@ -171,7 +174,7 @@
 
         </div>
     </section>
-    <section class="text-black w-full px-32 pb-32 flex gap-4 flex-col h-full items-center justify-center">
+    <section class="text-black w-full px-4 pb-4  md:px-32 md:pb-32  flex gap-4 flex-col h-full items-center justify-center">
         <div class="flex gap-2">
             <img src="../image/left-shape.svg" alt="">
             <h2> Book Now</h2>

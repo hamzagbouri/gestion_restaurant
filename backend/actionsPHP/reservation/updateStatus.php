@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
         $stmt->execute();
         header("Location: /Gestion Restaurant/frontend/admin/reservation.php");
 
-    } else if(isset($_POST['submit'])) {
+    } else if(isset($_POST['action'])) {
         $reservationId = $_POST['res-id'];
         $newStatus = $_POST['new-status'];
         $stmt = $con->prepare('UPDATE `reservation` set `status` = ? where `id` = ?');
@@ -27,6 +27,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
         $stmt->execute();
         header("Location: /Gestion Restaurant/frontend/client/reservation.php");
 
+    } else{
+        echo 'aa';
     }
 }
 ?>

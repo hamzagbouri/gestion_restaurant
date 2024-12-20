@@ -1,11 +1,11 @@
 <?php
 include "../../database/database.php";
 session_start();
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $user_id = $_SESSION['id_logged'];
     $menu = $_POST['menu-select'];
-    $adresse = $_POST['adresse-reservation'];
-    $nbrPersoone = $_POST['nbr-personne-reservation'];
+    $adresse = trim(htmlspecialchars( $_POST['adresse-reservation']));
+    $nbrPersoone = trim(htmlspecialchars( $_POST['nbr-personne-reservation']));
     $date = $_POST['date-reservation'];
     $heure = $_POST['heure-reservation'];
     $status = "En Attente";

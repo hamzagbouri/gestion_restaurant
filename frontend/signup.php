@@ -77,7 +77,7 @@ if(isset($_SESSION['id_logged']))
                 <img class="w-28 h-16 " src="image/logo2.png" alt="">
             </div>
       
-                <ul class="flex w-[30%] justify-around text-lg font-bold tracking-widest">
+                <ul class="hidden md:flex w-[30%] justify-around text-lg font-bold tracking-widest">
                     <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="client/home.php">Home</a></li>
                     <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="client/menu.php">Menu</a></li>
                     <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="client/contact.php">Contact</a></li>
@@ -97,12 +97,12 @@ if(isset($_SESSION['id_logged']))
         </div>
 
     </header>
-    <section class="flex w-full h-full p-32 items-center justify-around text-black">
-            <div class=" flex w-[40%]">
+    <section class="flex flex-col md:flex-row w-full h-full p-4 md:p-32 items-center justify-around text-black">
+            <div class=" flex w-[90%] md:w-[40%]">
                 <img class="w-[100%] rounded-tr-3xl rounded-tl-full rounded-bl-full rounded-br-full " src="image/image.webp" alt="">
                      
             </div>
-            <div class="w-[40%] flex flex-col gap-8">
+            <div class="w-[90%] md:w-[40%] flex flex-col gap-8">
                     <p class="text-[#757575] text-center text-[40px] ">SIGN UP</p>
                     <form action="../backend/actionsPHP/signup.php" method="post" class="flex flex-col gap-4" >
                     <div class="flex flex-col gap-2">

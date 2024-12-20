@@ -156,10 +156,15 @@ $allReservations = $con->query('SELECT * from reservation');
                if($allReservations->num_rows>0)
                {
                     foreach($allReservations as $res)
-                    {?>
-                        <div class="w-[40%] border flex flex-col gap-2 rounded-lg p-2">
+                    {
+                        $clientZ = $con->query("SELECT * from user inner join reservation on user.id = reservation.id_client where reservation.id_client= ".$res['id_client']."");
+                        $client = $clientZ->fetch_assoc();
+                        $menuZ = $con->query("SELECT * from menu inner join reservation on menu.id = reservation.id_menu where reservation.id_menu= ".$res['id_menu']."");
+                        $menu = $menuZ->fetch_assoc();
+                        ?>
+                        <div class="w-[40%] border bg-gray-100 flex flex-col gap-2 rounded-lg p-2">
                         <div class="flex justify-between items-center">
-                            <p class="text-center">Reservation Of Test Test</p>
+                            <p class="text-center">Reservation Of  <span class="font-bold"><?php echo $client['nom']?></span>  </p>
                             <div class="flex gap-2">
                                 <?php if($res['status'] == 'En Attente') {?>
                                     <form action="../../backend/actionsPHP/reservation/updateStatus.php" method="post">
@@ -178,12 +183,12 @@ $allReservations = $con->query('SELECT * from reservation');
                             </div>
     
                         </div>
-                        <p>Menu X </p>
-                        <p><span class="text-[#a2a2a2]">Nomre de personne:</span> </p>
-                        <p><span class="text-[#a2a2a2]">Adresse:</span> </p>
-                        <p><span class="text-[#a2a2a2]">Date:</span> </p>
-                        <p><span class="text-[#a2a2a2]">Heure:</span> </p>
-                        <p><span class="text-[#a2a2a2]">Status:</span> Accepted </p>
+                        <p><span class="text-[#a2a2a2]">Menu: </span><?php echo $menu['titre']?> </p>
+                        <p><span class="text-[#a2a2a2]">Nomre de personne: </span><?php echo $res['nbr_personnes']?> </p>
+                        <p><span class="text-[#a2a2a2]">Adresse: </span> <?php echo $res['addresse_reservation']?></p>
+                        <p><span class="text-[#a2a2a2]">Date: </span> <?php echo $res['date_reservation']?></p>
+                        <p><span class="text-[#a2a2a2]">Heure: </span><?php echo $res['heure_reservation']?> </p>
+                        <p><span class="text-[#a2a2a2]">Status: </span> <?php echo $res['status']?> </p>
     
                        
                     </div>
