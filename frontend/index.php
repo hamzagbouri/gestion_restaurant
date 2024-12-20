@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['id_logged']))
+{
+    header('Location: /Gestion Restaurant/frontend/index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,13 +77,13 @@
                 <img class="w-28 h-16 " src="image/logo2.png" alt="">
             </div>
       
-                <ul class="flex w-[30%] justify-around text-lg font-bold tracking-widest">
-                    <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="client/home.php">Home</a></li>
-                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="client/menu.php">Menu</a></li>
-                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="client/contact.php">Contact</a></li>
+            <ul class="md:flex justify-center w-[30%]  justify-around text-lg font-bold tracking-widest">
+                    <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="home.php">Home</a></li>
+                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="menu.php">Menu</a></li>
+                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="contact.php">Contact</a></li>
                     <?php
-                        if(isset($_SESSION['logged_id'])){
-                        echo "<li><a href='reservation.php'>My Reservations</a></li>";
+                        if(isset($_SESSION['id_logged'])){
+                        echo "<li><a href='reservation.php'>My&nbsp;Reservations</a></li>";
                     }
                     ?>
                 </ul>
@@ -90,25 +97,34 @@
         </div>
 
     </header>
-    <section class="flex w-full h-full p-32 items-center justify-around text-black">
-            <div class=" flex w-[40%]">
+    <section class="flex flex-col md:flex-row w-full h-full p-4 md:px-32 items-center justify-around text-black">
+            <div class=" flex w-[90%] md:w-[40%]">
                 <img class="w-[100%] rounded-tr-3xl rounded-tl-full rounded-bl-full rounded-br-full " src="image/image.webp" alt="">
                      
             </div>
-            <div class="w-[40%] flex flex-col gap-8">
+            <div class="w-[90%] md:w-[40%] flex flex-col gap-8">
                     <p class="text-[#757575] text-center text-[40px] ">Login</p>
-                    <form action="" method="post" class="flex flex-col gap-4" >
+                    <form action="../backend/actionsPHP/login.php" method="post" class="flex flex-col gap-4" >
                         <div class="flex flex-col gap-2">
                         <label for="email-login text-xl">Email</label>
-                        <input id="email-login" type="text" class='border pl-4 py-2' placeholder="Enter your email...">
+                        <input id="email-login" name="email-login" type="text" class='border pl-4 py-2' placeholder="Enter your email...">
                         </div>
                        
                         <div class="flex flex-col">
                             <label for="password-login">Password</label>
-                            <input id="password-login" class='border pl-4 py-2' type="password" placeholder="Enter your password...">
+                            <input id="password-login" name="password-login" class='border pl-4 py-2' type="password" placeholder="Enter your password...">
                         </div>
                         <button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary">Login</button>
                         <p class="text-[#757575] text-center">Don't have an account? <a class="underline" href="signup.php">create one</a> </p>
+                        <p class="text-[#ff0000] text-center"> 
+                            <?php
+                            if(isset($_SESSION['error']))
+                            {
+                                echo $_SESSION['error'];
+                                unset($_SESSION['error']);
+                            }
+                            ?> 
+                        </p>
                     </form>
             </div>
     </section>

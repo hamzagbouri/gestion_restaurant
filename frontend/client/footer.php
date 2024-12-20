@@ -1,5 +1,5 @@
 <footer>
-        <div class="bg-black text-gray-200 py-10 text-sm px-32">
+        <div class="bg-black text-gray-200 py-10 text-sm text-center px-16 md:px-32">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
                     <!-- Social Media Section -->

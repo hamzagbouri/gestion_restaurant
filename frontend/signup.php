@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['id_logged']))
+{
+    header('Location: /Gestion Restaurant/frontend/index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,13 +77,13 @@
                 <img class="w-28 h-16 " src="image/logo2.png" alt="">
             </div>
       
-                <ul class="flex w-[30%] justify-around text-lg font-bold tracking-widest">
-                    <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="client/home.php">Home</a></li>
-                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="client/menu.php">Menu</a></li>
-                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="client/contact.php">Contact</a></li>
+            <ul class="md:flex justify-center w-[30%]  justify-around text-lg font-bold tracking-widest">
+                    <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="home.php">Home</a></li>
+                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="menu.php">Menu</a></li>
+                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="contact.php">Contact</a></li>
                     <?php
-                        if(isset($_SESSION['logged_id'])){
-                        echo "<li><a href='reservation.php'>My Reservations</a></li>";
+                        if(isset($_SESSION['id_logged'])){
+                        echo "<li><a href='reservation.php'>My&nbsp;Reservations</a></li>";
                     }
                     ?>
                 </ul>
@@ -90,33 +97,87 @@
         </div>
 
     </header>
-    <section class="flex w-full h-full p-32 items-center justify-around text-black">
-            <div class=" flex w-[40%]">
+    <section class="flex flex-col md:flex-row w-full h-full p-4 md:p-32 items-center justify-around text-black">
+            <div class=" flex w-[90%] md:w-[40%]">
                 <img class="w-[100%] rounded-tr-3xl rounded-tl-full rounded-bl-full rounded-br-full " src="image/image.webp" alt="">
                      
             </div>
-            <div class="w-[40%] flex flex-col gap-8">
+            <div class="w-[90%] md:w-[40%] flex flex-col gap-8">
                     <p class="text-[#757575] text-center text-[40px] ">SIGN UP</p>
-                    <form action="" method="post" class="flex flex-col gap-4" >
+                    <form action="../backend/actionsPHP/signup.php" method="post" class="flex flex-col gap-4" >
                     <div class="flex flex-col gap-2">
                         <label for="name-signup text-xl">Name</label>
-                        <input id="name-signup" type="text" class='border pl-4 py-2' placeholder="Enter your name...">
+                        <input id="name-signup" name="name-signup" type="text" class='border pl-4 py-2' placeholder="Enter your name...">
                         </div>
                         <div class="flex flex-col gap-2">
                         <label for="email-signup text-xl">Email</label>
-                        <input id="email-signup" type="text" class='border pl-4 py-2' placeholder="Enter your email...">
+                        <input id="email-signup" type="text" name="email-signup" class='border pl-4 py-2' placeholder="Enter your email...">
                         </div>
                        
                         <div class="flex flex-col">
                             <label for="password-signup">Password</label>
-                            <input id="password-signup" class='border pl-4 py-2' type="password" placeholder="Enter your password...">
+                            <input id="password-signup" name="password-signup" class='border pl-4 py-2' type="password" placeholder="Enter your password...">
                         </div>
                         <button class="px-4 py-2 bg-primary rounded-xl hover:bg-transparent hover:border hover:text-primary">Sign Up</button>
                         <p class="text-[#757575] text-center">Already have an account? <a class="underline" href="index.php">login</a> </p>
 
                     </form>
+                
             </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Obtenez les éléments du formulaire
+    const form = document.querySelector("form");
+    const nameInput = document.getElementById("name-signup");
+    const emailInput = document.getElementById("email-signup");
+    const passwordInput = document.getElementById("password-signup");
+
+    // Écoutez l'événement de soumission du formulaire
+    form.addEventListener("submit", function (event) {
+        let isValid = true;
+
+        // Validation du champ "Name"
+        const nameRegex = /^[a-zA-Z\s]{3,}$/;
+        if (!nameRegex.test(nameInput.value)) {
+            Swal.fire({
+                icon: "error",
+                title: "Nom invalide",
+                text: "Le nom doit contenir au moins 3 caractères alphabétiques.",
+            });
+            isValid = false;
+        }
+
+        // Validation du champ "Email"
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (isValid && !emailRegex.test(emailInput.value)) {
+            Swal.fire({
+                icon: "error",
+                title: "Email invalide",
+                text: "Veuillez entrer une adresse email valide.",
+            });
+            isValid = false;
+        }
+
+        // Validation du champ "Password"
+        const passwordRegex = /^[A-Za-z\d@$!%*?&]{8,}$/;
+        if (isValid && !passwordRegex.test(passwordInput.value)) {
+            Swal.fire({
+                icon: "error",
+                title: "Mot de passe invalide",
+                html: "Le mot de passe doit contenir :<ul style='text-align:left;'><li>Au moins 8 caractères</li><li>Une majuscule</li><li>Une minuscule</li><li>Un chiffre</li><li>Un caractère spécial</li></ul>",
+            });
+            isValid = false;
+        }
+
+        // Empêcher l'envoi si une validation échoue
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+
     <footer>
         <div class="bg-black text-gray-200 py-10 text-sm px-32">
             <div class="container mx-auto px-4">
