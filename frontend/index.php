@@ -77,13 +77,13 @@ if(isset($_SESSION['id_logged']))
                 <img class="w-28 h-16 " src="image/logo2.png" alt="">
             </div>
       
-                <ul class="hidden md:flex w-[30%] justify-around text-lg font-bold tracking-widest">
-                    <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="client/home.php">Home</a></li>
-                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="client/menu.php">Menu</a></li>
-                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="client/contact.php">Contact</a></li>
+            <ul class="md:flex justify-center w-[30%]  justify-around text-lg font-bold tracking-widest">
+                    <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="home.php">Home</a></li>
+                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="menu.php">Menu</a></li>
+                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="contact.php">Contact</a></li>
                     <?php
-                        if(isset($_SESSION['logged_id'])){
-                        echo "<li><a href='reservation.php'>My Reservations</a></li>";
+                        if(isset($_SESSION['id_logged'])){
+                        echo "<li><a href='reservation.php'>My&nbsp;Reservations</a></li>";
                     }
                     ?>
                 </ul>

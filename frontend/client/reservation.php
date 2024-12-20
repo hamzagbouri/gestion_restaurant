@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(!isset($_SESSION['id_logged']))
+{
+    header('Location: /Gestion Restaurant/frontend/index.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

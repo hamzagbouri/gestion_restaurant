@@ -8,7 +8,7 @@ include '../../backend/database/database.php';
                 <img class="w-28 h-16 " src="../image/logo2.png" alt="">
             </div>
       
-                <ul class="md:flex hidden w-[30%] justify-around text-lg font-bold tracking-widest">
+                <ul class="md:flex justify-center w-[30%]  justify-around text-lg font-bold tracking-widest">
                     <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="home.php">Home</a></li>
                     <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="menu.php">Menu</a></li>
                     <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="contact.php">Contact</a></li>

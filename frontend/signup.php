@@ -77,13 +77,13 @@ if(isset($_SESSION['id_logged']))
                 <img class="w-28 h-16 " src="image/logo2.png" alt="">
             </div>
       
-                <ul class="hidden md:flex w-[30%] justify-around text-lg font-bold tracking-widest">
-                    <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="client/home.php">Home</a></li>
-                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="client/menu.php">Menu</a></li>
-                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="client/contact.php">Contact</a></li>
+            <ul class="md:flex justify-center w-[30%]  justify-around text-lg font-bold tracking-widest">
+                    <li ><a class="nav-items hover:text-[#9c7e54] hover:font-bold" href="home.php">Home</a></li>
+                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold "  href="menu.php">Menu</a></li>
+                    <li><a class="nav-items hover:text-[#9c7e54] hover:font-bold"  href="contact.php">Contact</a></li>
                     <?php
-                        if(isset($_SESSION['logged_id'])){
-                        echo "<li><a href='reservation.php'>My Reservations</a></li>";
+                        if(isset($_SESSION['id_logged'])){
+                        echo "<li><a href='reservation.php'>My&nbsp;Reservations</a></li>";
                     }
                     ?>
                 </ul>
@@ -125,6 +125,59 @@ if(isset($_SESSION['id_logged']))
                 
             </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Obtenez les éléments du formulaire
+    const form = document.querySelector("form");
+    const nameInput = document.getElementById("name-signup");
+    const emailInput = document.getElementById("email-signup");
+    const passwordInput = document.getElementById("password-signup");
+
+    // Écoutez l'événement de soumission du formulaire
+    form.addEventListener("submit", function (event) {
+        let isValid = true;
+
+        // Validation du champ "Name"
+        const nameRegex = /^[a-zA-Z\s]{3,}$/;
+        if (!nameRegex.test(nameInput.value)) {
+            Swal.fire({
+                icon: "error",
+                title: "Nom invalide",
+                text: "Le nom doit contenir au moins 3 caractères alphabétiques.",
+            });
+            isValid = false;
+        }
+
+        // Validation du champ "Email"
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (isValid && !emailRegex.test(emailInput.value)) {
+            Swal.fire({
+                icon: "error",
+                title: "Email invalide",
+                text: "Veuillez entrer une adresse email valide.",
+            });
+            isValid = false;
+        }
+
+        // Validation du champ "Password"
+        const passwordRegex = /^[A-Za-z\d@$!%*?&]{8,}$/;
+        if (isValid && !passwordRegex.test(passwordInput.value)) {
+            Swal.fire({
+                icon: "error",
+                title: "Mot de passe invalide",
+                html: "Le mot de passe doit contenir :<ul style='text-align:left;'><li>Au moins 8 caractères</li><li>Une majuscule</li><li>Une minuscule</li><li>Un chiffre</li><li>Un caractère spécial</li></ul>",
+            });
+            isValid = false;
+        }
+
+        // Empêcher l'envoi si une validation échoue
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+
     <footer>
         <div class="bg-black text-gray-200 py-10 text-sm px-32">
             <div class="container mx-auto px-4">
